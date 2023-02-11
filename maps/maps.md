@@ -1,0 +1,8 @@
+- create a map 
+- check if the map is empty
+- add elements to the map  
+- delete a element in the map 
+- create another map and check if both maps are equal 
+- find the value missing in the map 
+- delete the value missing in the map 
+- sort the values missing in the map 
