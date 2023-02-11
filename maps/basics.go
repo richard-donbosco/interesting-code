@@ -25,18 +25,7 @@ func main() {
 
 	// check if males and and ages have same values
 
-	for k, v := range males {
-		if _, ok := ages[k]; ok {
-			if v == ages[k] {
-				fmt.Println(k, " exists in both maps and ages, value is ", ages[k])
-			} else {
-				fmt.Println("age of ", k, " is different in ages and males")
-			}
-
-		} else {
-			fmt.Println(k, " doesn't exist in ages")
-		}
-	}
+	intersect(males, ages)
 
 }
 
@@ -56,4 +45,21 @@ func delete_from_map(a map[string]int, k string) {
 	} else {
 		fmt.Println(k, " doesn't exist in the map")
 	}
+}
+
+func intersect(a, b map[string]int) {
+
+	for k, v := range a {
+		if _, ok := b[k]; ok {
+			if v == b[k] {
+				fmt.Println(k, " exists in both maps and ages, value is ", b[k])
+			} else {
+				fmt.Println("age of ", k, " is different in ages and males")
+			}
+
+		} else {
+			fmt.Println(k, " doesn't exist in ages")
+		}
+	}
+
 }
