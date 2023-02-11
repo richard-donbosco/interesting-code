@@ -24,9 +24,11 @@ func main() {
 
 	// check if males and and ages have same values
 	var matching_keys map[string]int
-	matching_keys = intersect(males, ages)
+	matching_keys = maps_intersect(males, ages)
 	map_print(matching_keys)
 
+	var union_map map[string]int = maps_union(males, ages)
+	map_print(union_map)
 }
 
 func map_print(a map[string]int) {
@@ -72,7 +74,7 @@ func delete_from_map(a map[string]int, k string) {
 	}
 }
 
-func intersect(a, b map[string]int) map[string]int {
+func maps_intersect(a, b map[string]int) map[string]int {
 	matching_keys := make(map[string]int)
 	for k, v := range a {
 		if _, ok := b[k]; ok {
@@ -88,4 +90,15 @@ func intersect(a, b map[string]int) map[string]int {
 		}
 	}
 	return matching_keys
+}
+
+func maps_union(a, b map[string]int) map[string]int {
+	union_map := make(map[string]int)
+	for k, v := range a {
+		add_to_map(union_map, k, v)
+	}
+	for k, v := range b {
+		add_to_map(union_map, k, v)
+	}
+	return union_map
 }
