@@ -48,3 +48,12 @@ func add_to_map(a map[string]int, k string, v int) {
 		fmt.Println(k, " already exists in the map")
 	}
 }
+
+func delete_from_map(a map[string]int, k string) {
+	k = strings.ToLower(k)
+	if _, ok := a[k]; !ok {
+		delete(a, k)
+	} else {
+		fmt.Println(k, " doesn't exist in the map")
+	}
+}
