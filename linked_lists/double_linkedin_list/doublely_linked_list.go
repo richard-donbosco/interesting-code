@@ -97,6 +97,17 @@ func main() {
 	list1.print()
 	fmt.Println("---------")
 
+	//clear list
+	list1.head = nil
+	list1.tail = nil
+
+	//sort
+	for list1.len() < 100 {
+		list1.insert(rand.Intn(100))
+	}
+	list1.print()
+	fmt.Println("---------")
+
 }
 
 func (l *list) len() int {
@@ -283,4 +294,32 @@ func (l *list) sort() {
 	}
 	l.head = list2.head
 	l.tail = list2.tail
+}
+
+func (l *list) insert(val int) (int, bool) {
+	if l.len() == 0 {
+		l.head = &node{prev: nil, next: nil, value: val}
+		l.tail = l.head
+		return val, true
+	}
+	var current *node = l.head
+	for {
+		if val < current.value {
+			l.unique_prepend(val)
+			return val, true
+		} else if val > current.value && current.next == nil {
+			l.unique_append(val)
+			return val, true
+		} else if val > current.value && val < current.next.value {
+			var tmp *node = current.next
+			current.next = &node{prev: current, next: tmp, value: val}
+			tmp.prev = current.next
+			return val, true
+		} else if current.next != nil {
+			current = current.next
+		} else if current.next == nil {
+			break
+		}
+	}
+	return 0, false
 }

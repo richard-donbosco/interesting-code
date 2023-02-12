@@ -29,6 +29,16 @@ func main() {
 	list1.print()
 	fmt.Println("---------")
 
+	//clear list
+	list1.head = nil
+
+	//append large number of random values
+	for i := 0; i < 10; i++ {
+		list1.insert(rand.Intn(100))
+	}
+	list1.print()
+	fmt.Println("---------")
+
 }
 
 func (l *list) append(val int) {
@@ -44,6 +54,19 @@ func (l *list) append(val int) {
 				item = item.next
 			}
 		}
+	}
+}
+func (l *list) prepend(val int) {
+	if l.head == nil {
+		l.head = &node{value: val, next: nil}
+	} else {
+		var tmp *node = l.head
+		l.head = &node{value: val, next: tmp}
+	}
+}
+func (l *list) unique_prepend(val int) {
+	if !(l.exists(val)) {
+		l.prepend(val)
 	}
 }
 
@@ -65,19 +88,7 @@ func (l *list) len() int {
 
 func (l *list) unique_append(val int) {
 	if !(l.exists(val)) {
-		if l.head == nil {
-			l.head = &node{value: val, next: nil}
-		} else {
-			var item *node = l.head
-			for {
-				if item.next == nil {
-					item.next = &node{value: val, next: nil}
-					break
-				} else {
-					item = item.next
-				}
-			}
-		}
+		l.append(val)
 	}
 }
 
@@ -187,4 +198,30 @@ func (l *list) remove(val int) (int, bool) {
 
 	return 0, false
 
+}
+
+func (l *list) insert(val int) (int, bool) {
+	if l.len() == 0 {
+		l.head = &node{next: nil, value: val}
+		return val, true
+	}
+	var current *node = l.head
+	for {
+		if val < current.value {
+			l.unique_prepend(val)
+			return val, true
+		} else if val > current.value && current.next == nil {
+			l.unique_append(val)
+			return val, true
+		} else if val > current.value && val < current.next.value {
+			var tmp *node = current.next
+			current.next = &node{next: tmp, value: val}
+			return val, true
+		} else if current.next != nil {
+			current = current.next
+		} else if current.next == nil {
+			break
+		}
+	}
+	return 0, false
 }
