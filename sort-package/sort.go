@@ -1,7 +1,13 @@
+package main
+
 type person struct {
-	name
-	age
-	gender
-	nationality
-	location
+	name        string
+	age         int
+	gender      string
+	nationality string
+	location    string
+}
+
+func main() {
+
 }
